@@ -1,0 +1,92 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Random;
+
+public class NumberGuessingGame {
+
+    private int randomNumber;
+    private int attempts;
+
+    public NumberGuessingGame() {
+        // Generate a random number between 1 and 100
+        Random rand = new Random();
+        randomNumber = rand.nextInt(100) + 1;
+        attempts = 0;
+
+        // Create JFrame
+        JFrame frame = new JFrame("Number Guessing Game - By Hrishikesh TechnoHacks internship project");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(new Color(245, 255, 250)); // mint background
+
+        // Title Label
+        JLabel titleLabel = new JLabel("Guess a number between 1 and 100");
+        titleLabel.setBounds(90, 30, 350, 30);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setForeground(new Color(0, 102, 204));
+        frame.add(titleLabel);
+
+        // Input Label
+        JLabel inputLabel = new JLabel("Your Guess:");
+        inputLabel.setBounds(100, 90, 100, 25);
+        frame.add(inputLabel);
+
+        // Text field
+        JTextField guessField = new JTextField();
+        guessField.setBounds(200, 90, 100, 25);
+        frame.add(guessField);
+
+        // Button
+        JButton guessButton = new JButton("Submit Guess");
+        guessButton.setBounds(180, 140, 140, 35);
+        guessButton.setBackground(new Color(0, 153, 76));
+        guessButton.setForeground(Color.WHITE);
+        guessButton.setFocusPainted(false);
+        frame.add(guessButton);
+
+        // Result label
+        JLabel resultLabel = new JLabel("");
+        resultLabel.setBounds(150, 190, 300, 30);
+        resultLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        frame.add(resultLabel);
+
+        // Button Action
+        guessButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String guessText = guessField.getText();
+                try {
+                    int userGuess = Integer.parseInt(guessText);
+                    attempts++;
+                    if (userGuess < 1 || userGuess > 100) {
+                        resultLabel.setText("Please enter a number between 1 and 100.");
+                    } else if (userGuess == randomNumber) {
+                        JOptionPane.showMessageDialog(frame,
+                                "🎉 Correct! You guessed it in " + attempts + " attempts!",
+                                "Congratulations",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        // Reset game
+                        randomNumber = rand.nextInt(100) + 1;
+                        attempts = 0;
+                        guessField.setText("");
+                        resultLabel.setText("");
+                    } else if (userGuess < randomNumber) {
+                        resultLabel.setText("Too low. Try again!");
+                    } else {
+                        resultLabel.setText("Too high. Try again!");
+                    }
+                } catch (NumberFormatException ex) {
+                    resultLabel.setText("Please enter a valid number.");
+                }
+            }
+        });
+
+        // Show frame
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new NumberGuessingGame();
+    }
+}
