@@ -28,4 +28,8 @@ Open the NumberGuessingGame.java file in your preferred IDE.
 
 Compile and run the file.
 
+## 🎮 Number Guessing Game UI
+
+![Number Guessing Game](https://raw.githubusercontent.com/hrishiauti2099/Project_Images/main/Number-guessing-game.png)
+
 
